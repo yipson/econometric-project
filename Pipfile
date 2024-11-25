@@ -3,11 +3,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[requires]
+python_version = "3.13.0"
+
 [packages]
+scipy = "*"
+matplotlib = "*"
+numpy = "*"
 pandas = "*"
+scikit-learn = "*"
 statsmodels = "*"
 
 [dev-packages]
 
-[requires]
-python_version = "3.8"
