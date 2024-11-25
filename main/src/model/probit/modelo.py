@@ -1,10 +1,9 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
-from statsmodels.discrete.discrete_model import Probit
-from scipy.stats import norm  # Cambiamos esta línea para usar scipy.stats
-from sklearn.metrics import accuracy_score, confusion_matrix, recall_score
-from tkinter import messagebox
+from sklearn.metrics import accuracy_score, recall_score
+from statsmodels.tools.sm_exceptions import ValueWarning
 
 
 
@@ -38,9 +37,11 @@ class ModelProbit:
         except np.linalg.LinAlgError as e:
             raise Exception(f"Se requiere mas cantidad o mas variabilidad en los datos") from e
 
-        # Extraemos B0 y B1
-        self.beta_0 = self.probit_fit.params[0]
-        self.beta_1 = self.probit_fit.params[1]
+        try:
+            self.beta_0 = self.probit_fit.params[0]
+            self.beta_1 = self.probit_fit.params[1]
+        except IndexError as e:
+            raise Exception(f"Se mas variabilidad en los datos") from e
 
         # Datos aleatorios para probar modelo
         data_test = np.random.randint(0, 2, size=(self.sample_len))
@@ -76,4 +77,81 @@ class ModelProbit:
 
     #definir como metodo en package utils para que pueda ser usado de forma global
     def _map_string_to_array(self, string_numeros):
-        return list(map(int, string_numeros.split()))
+        numeros = list(map(int, string_numeros.split()))
+        if len(numeros) < 5:
+            raise ValueWarning("La lista debe contener al menos 5 elementos.")
+        return numeros
+
+
+    def plot_statistics_one(self):
+        if self.probit_model is None:
+            raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
+
+        data = pd.DataFrame({
+            'Portabilidad': self.portability,
+            'Exito': self.success
+        })
+
+        # Calcular estadísticas
+        mean_values = data.mean()
+        median_values = data.median()
+        std_dev_values = data.std()
+
+        # Crear subplots
+        fig, axs = plt.subplots(2, 2, figsize=(15, 20))
+
+        axs[0, 0].bar(data.columns, mean_values)
+        axs[0, 0].set_title('Media', fontsize=14)
+        axs[0, 0].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        axs[0, 1].bar(data.columns, median_values)
+        axs[0, 1].set_title('Mediana', fontsize=14)
+        axs[0, 1].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        axs[1, 0].bar(data.columns, std_dev_values)
+        axs[1, 0].set_title('Desviación Estándar', fontsize=14)
+        axs[1, 0].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        # Ajustar el espacio entre las gráficas
+        plt.subplots_adjust(left=0.1, bottom=0.2, right=0.9, top=0.9, wspace=0.3, hspace=0.5)
+
+        # Mostrar la gráfica
+        plt.show()
+
+
+    def plot_statistics_two(self):
+        if self.probit_model is None:
+            raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
+
+        data = pd.DataFrame({
+            'Portabilidad': self.portability,
+            'Exito': self.success
+        })
+
+        # Calcular estadísticas
+        mean_values = data.mean()
+        std_dev_values = data.std()
+        mode_values = data.mode().iloc[0]
+        variance_values = data.var()
+        coef_variation_values = std_dev_values / mean_values
+
+        # Crear subplots
+        fig, axs = plt.subplots(2, 2, figsize=(15, 20))
+
+        axs[0, 0].bar(data.columns, variance_values)
+        axs[0, 0].set_title('Varianza')
+        axs[0, 0].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        axs[0, 1].bar(data.columns, mode_values)
+        axs[0, 1].set_title('Moda')
+        axs[0, 1].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        axs[1, 0].bar(data.columns, coef_variation_values)
+        axs[1, 0].set_title('Coeficiente de Variación')
+        axs[1, 0].set_xticklabels(data.columns, rotation=45, ha='right')
+
+        # Ajustar el espacio entre las gráficas
+        plt.subplots_adjust(left=0.1, bottom=0.2, right=0.9, top=0.9, wspace=0.3, hspace=0.5)
+
+        # mostrar gráfica
+        plt.show()
