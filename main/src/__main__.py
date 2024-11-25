@@ -19,6 +19,14 @@ class App:
         self.root.geometry("500x700")
         self.root.resizable(False, False)
 
+        self.bg_color = "#01283b"  # Fondo general
+        self.btn_bg_color = "#00acca"  # Fondo de botones
+        self.btn_bg_color_amarillo = "#cad300"
+        self.label_bg_color_verde = "#5bbb01"
+        self.text_blanco = "#ffffff"
+
+        self.root.configure(bg=self.bg_color)
+
         self.create_main_menu_view()
 
     #
@@ -28,23 +36,25 @@ class App:
             widget.destroy()
 
         # Título centrado
-        self.lbl_titulo = tk.Label(self.root, text="Success Analyzer", font=("Arial", 30))
+        self.lbl_titulo = tk.Label(self.root, text="Success Analyzer", font=("Arial", 30),
+                                   bg=self.label_bg_color_verde, fg=self.text_blanco)
         self.lbl_titulo.pack(pady=100)
 
         # Botones del menú
         self.btn_regresion = tk.Button(self.root, text="Regresión Lineal", font=("Arial", 18),
-                                       command=self.linear_regression_view)
+                                       bg=self.btn_bg_color, fg=self.text_blanco, command=self.linear_regression_view)
         self.btn_regresion.pack(pady=20)
 
         self.btn_probit = tk.Button(self.root, text="Modelo Probit", font=("Arial", 18),
-                                    command=self.probit_view)
+                                    bg=self.btn_bg_color, fg=self.text_blanco, command=self.probit_view)
         self.btn_probit.pack(pady=20)
 
         self.btn_logit = tk.Button(self.root, text="Modelo Logit", font=("Arial", 18),
-                                   command=self.logit_view)
+                                   bg=self.btn_bg_color, fg=self.text_blanco, command=self.logit_view)
         self.btn_logit.pack(pady=20)
 
-        self.btn_salir = tk.Button(self.root, text="Salir", font=("Arial", 10), command=self.root.quit)
+        self.btn_salir = tk.Button(self.root, text="Salir", font=("Arial", 10), command=self.root.quit,
+                                   bg=self.btn_bg_color_amarillo)
         self.btn_salir.pack(pady=10)
 
 
@@ -57,20 +67,21 @@ class App:
             widget.destroy()
 
         # Título centrado
-        self.lbl_titulo = tk.Label(self.root, text="Regresion Lineal", font=("Arial", 30))
+        self.lbl_titulo = tk.Label(self.root, text="Regresion Lineal", font=("Arial", 30),
+                                   bg=self.label_bg_color_verde, fg=self.text_blanco)
         self.lbl_titulo.pack(pady=100)
 
         # Botones del menú
         self.btn_regresion = tk.Button(self.root, text="Entrenar modelo", font=("Arial", 18),
-                                       command=self.train_linear_regression_model_view)
+                                       bg=self.btn_bg_color, fg=self.text_blanco, command=self.train_linear_regression_model_view)
         self.btn_regresion.pack(pady=20)
 
         self.btn_probit = tk.Button(self.root, text="Predecir datos", font=("Arial", 18),
-                                    command=self.predict_downloads_linear_regression_view)
+                                    bg=self.btn_bg_color, fg=self.text_blanco, command=self.predict_downloads_linear_regression_view)
         self.btn_probit.pack(pady=20)
 
         self.btn_regresar = tk.Button(self.root, text="Regresar", font=("Arial", 10),
-                                      command=self.create_main_menu_view)
+                                      bg=self.btn_bg_color_amarillo, command=self.create_main_menu_view)
         self.btn_regresar.pack(pady=10)
 
     #
@@ -80,20 +91,21 @@ class App:
             widget.destroy()
 
         # Título centrado
-        self.lbl_titulo = tk.Label(self.root, text="Probit", font=("Arial", 30))
+        self.lbl_titulo = tk.Label(self.root, text="Probit", font=("Arial", 30),
+                                   bg=self.label_bg_color_verde, fg=self.text_blanco)
         self.lbl_titulo.pack(pady=100)
 
         # Botones del menú
         self.btn_entrenar = tk.Button(self.root, text="Entrenar modelo", font=("Arial", 18),
-                                       command=self.train_probit_model_view)
+                                       bg=self.btn_bg_color, fg=self.text_blanco, command=self.train_probit_model_view)
         self.btn_entrenar.pack(pady=20)
 
         self.btn_predecir = tk.Button(self.root, text="Predecir datos", font=("Arial", 18),
-                                    command=self.predict_probit_view)
+                                    bg=self.btn_bg_color, fg=self.text_blanco, command=self.predict_probit_view)
         self.btn_predecir.pack(pady=20)
 
         self.btn_regresar = tk.Button(self.root, text="Regresar", font=("Arial", 10),
-                                      command=self.create_main_menu_view)
+                                      bg=self.btn_bg_color_amarillo, command=self.create_main_menu_view)
         self.btn_regresar.pack(pady=10)
 
     #
@@ -103,20 +115,21 @@ class App:
             widget.destroy()
 
         # Título centrado
-        self.lbl_titulo = tk.Label(self.root, text="Logit", font=("Arial", 30))
+        self.lbl_titulo = tk.Label(self.root, text="Logit", font=("Arial", 30),
+                                   bg=self.label_bg_color_verde, fg=self.text_blanco)
         self.lbl_titulo.pack(pady=100)
 
         # Botones del menú
         self.btn_entrenar = tk.Button(self.root, text="Entrenar modelo", font=("Arial", 18),
-                                       command=self.train_logit_model_view)
+                                       bg=self.btn_bg_color, fg=self.text_blanco, command=self.train_logit_model_view)
         self.btn_entrenar.pack(pady=20)
 
         self.btn_predecir = tk.Button(self.root, text="Predecir datos", font=("Arial", 18),
-                                    command=self.predict_logit_view)
+                                        bg=self.btn_bg_color, fg=self.text_blanco, command=self.predict_logit_view)
         self.btn_predecir.pack(pady=20)
 
         self.btn_regresar = tk.Button(self.root, text="Regresar", font=("Arial", 10),
-                                      command=self.create_main_menu_view)
+                                      bg=self.btn_bg_color_amarillo, command=self.create_main_menu_view)
         self.btn_regresar.pack(pady=10)
 
 
