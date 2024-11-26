@@ -24,6 +24,8 @@ class App:
         self.btn_bg_color_amarillo = "#cad300"
         self.label_bg_color_verde = "#5bbb01"
         self.text_blanco = "#ffffff"
+        self.gris = "#504f5e"
+        self.amarillo = "#f0c818"
 
         self.root.configure(bg=self.bg_color)
 
@@ -142,69 +144,79 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos", font=("Arial", 20))
+            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos", font=("Arial", 20),
+                                        bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo1.pack(pady=0.4)
             self.lbl_titulo2 = tk.Label(self.root, text="Recuerde ingresar los valores separados por un espacio",
-                                        font=("Arial", 12))
+                                        font=("Arial", 12), bg=self.bg_color, fg=self.text_blanco)
             self.lbl_titulo2.pack(pady=20)
 
             # Funcionalidad
-            self.lbl_funcionalidad = tk.Label(self.root, text="Funcionalidad:")
+            self.lbl_funcionalidad = tk.Label(self.root, text="Funcionalidad:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_funcionalidad.pack(pady=5)
             validate_func = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_funcionalidad = tk.Entry(self.root, validate='key', validatecommand=validate_func)
+            self.entry_funcionalidad = tk.Entry(self.root, validate='key', validatecommand=validate_func,
+                                                bg=self.gris, fg=self.text_blanco)
             self.entry_funcionalidad.pack(pady=5)
 
             # Calidad del código
-            self.lbl_calidad = tk.Label(self.root, text="Calidad del código:")
+            self.lbl_calidad = tk.Label(self.root, text="Calidad del código:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_calidad.pack(pady=5)
             validate_cali = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_calidad = tk.Entry(self.root, validate='key', validatecommand=validate_cali)
+            self.entry_calidad = tk.Entry(self.root, validate='key', validatecommand=validate_cali,
+                                          bg=self.gris, fg=self.text_blanco)
             self.entry_calidad.pack(pady=5)
 
             # Facilidad de uso
-            self.lbl_facilidad = tk.Label(self.root, text="Facilidad de uso:")
+            self.lbl_facilidad = tk.Label(self.root, text="Facilidad de uso:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_facilidad.pack(pady=5)
             validate_facil = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_facilidad = tk.Entry(self.root, validate='key', validatecommand=validate_facil)
+            self.entry_facilidad = tk.Entry(self.root, validate='key', validatecommand=validate_facil,
+                                            bg=self.gris, fg=self.text_blanco)
             self.entry_facilidad.pack(pady=5)
 
             # Compatibilidad
-            self.lbl_compatibilidad = tk.Label(self.root, text="Compatibilidad (0 o 1):")
+            self.lbl_compatibilidad = tk.Label(self.root, text="Compatibilidad (0 o 1):", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_compatibilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_compatibilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_compatibilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                                 bg=self.gris, fg=self.text_blanco)
             self.entry_compatibilidad.pack(pady=5)
 
-            self.lbl_descargas = tk.Label(self.root, text="Descargas:")
+            self.lbl_descargas = tk.Label(self.root, text="Descargas:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_descargas.pack(pady=5)
             validate_descargas = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_descargas = tk.Entry(self.root, validate='key', validatecommand=validate_descargas)
+            self.entry_descargas = tk.Entry(self.root, validate='key', validatecommand=validate_descargas,
+                                            bg=self.gris, fg=self.text_blanco)
             self.entry_descargas.pack(pady=5)
 
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=10)
 
-            self.btn_entrenar = tk.Button(self.frame_botones, text="Entrenar", command=self.train_linear_regresion_model_handler)
+            self.btn_entrenar = tk.Button(self.frame_botones, text="Entrenar", command=self.train_linear_regresion_model_handler,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_entrenar.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
             self.btn_predecir = tk.Button(self.frame_botones, text="Predecir datos",
-                                          command=self.predict_downloads_linear_regression_view)
+                                          command=self.predict_downloads_linear_regression_view,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=10)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.linear_regression_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.linear_regression_view,
+                                          bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
@@ -215,45 +227,52 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos", font=("Arial", 24), )
+            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos", font=("Arial", 24),
+                                        bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo1.pack(pady=1)
             self.lbl_titulo2 = tk.Label(self.root, text="Recuerde ingresar los valores separados por un espacio",
-                                        font=("Arial", 15))
+                                        font=("Arial", 15), bg=self.bg_color, fg=self.text_blanco)
             self.lbl_titulo2.pack(pady=20)
 
             # Portabilidad
-            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):")
+            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):",
+                                             bg=self.bg_color, fg=self.text_blanco)
             self.lbl_portabilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                               bg=self.gris, fg=self.text_blanco)
             self.entry_portabilidad.pack(pady=5)
 
-            self.lbl_exito = tk.Label(self.root, text="Exito:")
+            self.lbl_exito = tk.Label(self.root, text="Exito:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_exito.pack(pady=5)
-            self.entry_exito = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_exito = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                        bg=self.gris, fg=self.text_blanco)
             self.entry_exito.pack(pady=5)
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=70)
 
-            self.btn_entrenar_probit = tk.Button(self.frame_botones, text="Entrenar", command=self.train_probit_model_handler)
+            self.btn_entrenar_probit = tk.Button(self.frame_botones, text="Entrenar", command=self.train_probit_model_handler,
+                                                 bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_entrenar_probit.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
             self.btn_predecir = tk.Button(self.frame_botones, text="Predecir datos",
-                                          command=self.predict_probit_view)
+                                          command=self.predict_probit_view, bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=10)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.probit_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.probit_view,
+                                          bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
@@ -264,45 +283,51 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos\n", font=("Arial", 24), )
+            self.lbl_titulo1 = tk.Label(self.root, text="Entrenamiento de datos", font=("Arial", 24),
+                                        bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo1.pack(pady=1)
             self.lbl_titulo2 = tk.Label(self.root, text="Recuerde ingresar los valores separados por un espacio",
-                                        font=("Arial", 15))
+                                        font=("Arial", 15), bg=self.bg_color, fg=self.text_blanco)
             self.lbl_titulo2.pack(pady=20)
 
             # Portabilidad
-            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):")
+            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_portabilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                               bg=self.gris, fg=self.text_blanco)
             self.entry_portabilidad.pack(pady=5)
 
-            self.lbl_exito = tk.Label(self.root, text="Exito:")
+            self.lbl_exito = tk.Label(self.root, text="Exito:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_exito.pack(pady=5)
-            self.entry_exito = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_exito = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                        bg=self.gris, fg=self.text_blanco)
             self.entry_exito.pack(pady=5)
 
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=70)
 
-            self.btn_entrenar_probit = tk.Button(self.frame_botones, text="Entrenar", command=self.train_logit_model_handler)
+            self.btn_entrenar_probit = tk.Button(self.frame_botones, text="Entrenar", command=self.train_logit_model_handler,
+                                                 bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_entrenar_probit.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
-            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir datos",command=self.predict_logit_view)
+            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir datos",command=self.predict_logit_view,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=10)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.logit_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.logit_view, bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
@@ -313,59 +338,68 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo = tk.Label(self.root, text="Prediccion de datos.", font=("Arial", 24))
+            self.lbl_titulo = tk.Label(self.root, text="Prediccion de datos.", font=("Arial", 24),
+                                       bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo.pack(pady=10)
 
             # Funcionalidad
-            self.lbl_funcionalidad = tk.Label(self.root, text="Funcionalidad:")
+            self.lbl_funcionalidad = tk.Label(self.root, text="Funcionalidad:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_funcionalidad.pack(pady=5)
             validate_func = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_funcionalidad = tk.Entry(self.root, validate='key', validatecommand=validate_func)
+            self.entry_funcionalidad = tk.Entry(self.root, validate='key', validatecommand=validate_func,
+                                                bg=self.gris, fg=self.text_blanco)
             self.entry_funcionalidad.pack(pady=5)
 
             # Calidad del código
-            self.lbl_calidad = tk.Label(self.root, text="Calidad del código:")
+            self.lbl_calidad = tk.Label(self.root, text="Calidad del código:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_calidad.pack(pady=5)
             validate_cali = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_calidad = tk.Entry(self.root, validate='key', validatecommand=validate_cali)
+            self.entry_calidad = tk.Entry(self.root, validate='key', validatecommand=validate_cali,
+                                          bg=self.gris, fg=self.text_blanco)
             self.entry_calidad.pack(pady=5)
 
             # Facilidad de uso
-            self.lbl_facilidad = tk.Label(self.root, text="Facilidad de uso:")
+            self.lbl_facilidad = tk.Label(self.root, text="Facilidad de uso:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_facilidad.pack(pady=5)
             validate_facil = (self.root.register(self._validate_numeric_entry), '%P')
-            self.entry_facilidad = tk.Entry(self.root, validate='key', validatecommand=validate_facil)
+            self.entry_facilidad = tk.Entry(self.root, validate='key', validatecommand=validate_facil,
+                                            bg=self.gris, fg=self.text_blanco)
             self.entry_facilidad.pack(pady=5)
 
             # Compatibilidad
-            self.lbl_compatibilidad = tk.Label(self.root, text="Compatibilidad (0 o 1):")
+            self.lbl_compatibilidad = tk.Label(self.root, text="Compatibilidad (0 o 1):", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_compatibilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_compatibilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_compatibilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                                 bg=self.gris, fg=self.text_blanco)
             self.entry_compatibilidad.pack(pady=5)
 
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=50)
 
-            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir Descargas", command=self.predict_downloads_handler)
+            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir Descargas", command=self.predict_downloads_handler,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
             self.btn_aleatorio = tk.Button(self.frame_botones, text="Generar Datos Aleatorios y Predecir",
-                                           command=self.random_linear_regresion_predictions)
+                                           command=self.random_linear_regresion_predictions,
+                                           bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_aleatorio.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=5)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.linear_regression_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.linear_regression_view,
+                                          bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al predecir datos: {e}")
@@ -376,38 +410,44 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo = tk.Label(self.root, text="Prediccion de exito.\n", font=("Arial", 24), )
+            self.lbl_titulo = tk.Label(self.root, text="Prediccion de exito.", font=("Arial", 24),
+                                       bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo.pack(pady=20)
 
             # Compatibilidad
-            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):")
+            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):",
+                                             bg=self.bg_color, fg=self.text_blanco)
             self.lbl_portabilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                               bg=self.gris, fg=self.text_blanco)
             self.entry_portabilidad.pack(pady=5)
 
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=70)
 
-            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir exito", command=self.predict_probit_handler)
+            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir exito", command=self.predict_probit_handler,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
             self.btn_aleatorio = tk.Button(self.frame_botones, text="Generar Datos Aleatorios y Predecir",
-                                           command=self.random_probit_predictions)
+                                           command=self.random_probit_predictions,
+                                           bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_aleatorio.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=5)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.probit_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.probit_view, bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al predecir datos: {e}")
@@ -418,37 +458,42 @@ class App:
             self.clear_window()
 
             # Título centrado
-            self.lbl_titulo = tk.Label(self.root, text="Prediccion de exito.\n", font=("Arial", 24), )
+            self.lbl_titulo = tk.Label(self.root, text="Prediccion de exito.", font=("Arial", 24),
+                                       bg=self.label_bg_color_verde, fg=self.text_blanco)
             self.lbl_titulo.pack(pady=20)
 
             # Compatibilidad
-            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):")
+            self.lbl_portabilidad = tk.Label(self.root, text="Portabilidad (0 o 1):", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_portabilidad.pack(pady=5)
             vcmd = (self.root.register(self._validate_bit_entry), '%P')
-            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd)
+            self.entry_portabilidad = tk.Entry(self.root, validate='key', validatecommand=vcmd,
+                                               bg=self.gris, fg=self.text_blanco)
             self.entry_portabilidad.pack(pady=5)
 
             # Botones
-            self.frame_botones = tk.Frame(self.root)
+            self.frame_botones = tk.Frame(self.root, bg=self.bg_color)
             self.frame_botones.pack(pady=70)
 
-            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir exito", command=self.predict_logit_handler)
+            self.btn_predecir = tk.Button(self.frame_botones, text="Predecir exito", command=self.predict_logit_handler,
+                                          bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_predecir.pack(side=tk.LEFT, padx=5)
 
             self.btn_aleatorio = tk.Button(self.frame_botones, text="Generar Datos Aleatorios y Predecir",
-                                           command=self.random_logit_predictions)
+                                           command=self.random_logit_predictions,
+                                           bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_aleatorio.pack(side=tk.LEFT, padx=5)
 
-            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields)
+            self.btn_limpiar = tk.Button(self.frame_botones, text="Limpiar", command=self._clean_fields,
+                                         bg=self.btn_bg_color, fg=self.text_blanco)
             self.btn_limpiar.pack(side=tk.LEFT, padx=5)
 
             # Resultados
-            self.lbl_resultados = tk.Label(self.root, text="Resultados:")
+            self.lbl_resultados = tk.Label(self.root, text="Resultados:", bg=self.bg_color, fg=self.text_blanco)
             self.lbl_resultados.pack(pady=5)
-            self.txt_resultados = tk.Text(self.root, height=8, width=40)
+            self.txt_resultados = tk.Text(self.root, height=8, width=40, bg=self.gris, fg=self.text_blanco)
             self.txt_resultados.pack(pady=5)
 
-            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.logit_view)
+            self.btn_regresar = tk.Button(self.root, text="Regresar", command=self.logit_view, bg=self.btn_bg_color_amarillo)
             self.btn_regresar.pack(pady=15)
         except Exception as e:
             messagebox.showerror("Error", f"Error al predecir datos: {e}")
