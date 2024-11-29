@@ -6,8 +6,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from statsmodels.tools.sm_exceptions import ValueWarning
 
-
+# Clase encargada de la logica del modelo de regresion lineal
 class ModelLinearRegression:
+
+    # Constructor
     def __init__(self):
         self.model  = None
         self.beta_0 = None
@@ -17,14 +19,18 @@ class ModelLinearRegression:
         self.beta_4 = None
         self.epsilon = None
 
+
+    # Funcion encargada de entrenar el modelo
     def train_model(self, string_functionality, string_quality_code, string_easy_usage, string_compatibility, string_downloads):
 
+        # se convierten los daton recibidos como strings en arrays
         self.functionality  = self._map_string_to_array(string_functionality)
         self.quality_code   = self._map_string_to_array(string_quality_code)
         self.easy_usage     = self._map_string_to_array(string_easy_usage)
         self.compatibility = self._map_string_to_array(string_compatibility)
         self.downloads      = self._map_string_to_array(string_downloads)
 
+        # Se degine dataframe con cada array de datos
         data = pd.DataFrame({
             'Funcionalidad': self.functionality,
             'Calidad del código': self.quality_code,
@@ -57,7 +63,7 @@ class ModelLinearRegression:
         self.epsilon = np.sqrt(self.mse)
 
 
-
+    # Metodo que mapea datos recibidos como strings, en array numericos
     def _map_string_to_array(self, string_numeros):
         numeros = list(map(int, string_numeros.split()))
         if len(numeros) < 5:
@@ -65,6 +71,7 @@ class ModelLinearRegression:
         return numeros
 
 
+    # Metodo encargado de realizar predicciones
     def predict_downloads(self, functionality, quality_code, easy_usage, compatibility):
         if self.model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de hacer predicciones.")
@@ -78,19 +85,8 @@ class ModelLinearRegression:
 
         return self.y_pred
 
-    # por revisar
-    def predict_downloads_random_data(self, functionality, quality_code, easy_usage, compatibility, epsilon):
-        if self.model is None:
-            raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de hacer predicciones.")
 
-        return (self.beta_0 +
-                self.beta_1 * functionality +
-                self.beta_2 * quality_code +
-                self.beta_3 * easy_usage +
-                self.beta_4 * compatibility +
-                self.epsilon)
-
-
+    # Metodo encargado de graficar valores reales vs predicciones
     def plot_predictions(self):
         if self.model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
@@ -108,7 +104,7 @@ class ModelLinearRegression:
         plt.grid(True)
         plt.show()
 
-
+    # Metodo encargado de graficar media, mediana, desviacion estandar
     def plot_statistics_one(self):
         if self.model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
@@ -147,7 +143,7 @@ class ModelLinearRegression:
         # Mostrar la gráfica
         plt.show()
 
-
+    # Metodo encargado de graficar varianza, moda y coeficiente de varianza
     def plot_statistics_two(self):
         if self.model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")

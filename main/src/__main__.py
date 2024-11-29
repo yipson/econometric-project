@@ -6,8 +6,12 @@ from model.linearregression.modelo import ModelLinearRegression
 from model.probit.modelo import ModelProbit
 from model.logit.modelo import ModelLogit
 
-
+# Clase principal que recibe datos de entrada
+# y define la interfaz grafica
 class App:
+
+    # Metodo que inicia la aplicacion
+    # inicializa variables globales de interfaz grafica
     def __init__(self, root):
         self.root = root
         self.modelo_regresion_lineal = ModelLinearRegression()
@@ -31,7 +35,8 @@ class App:
 
         self.create_main_menu_view()
 
-    #
+
+    # Pantalla de menu principal
     def create_main_menu_view(self):
         # Limpiar la ventana actual
         for widget in self.root.winfo_children():
@@ -60,9 +65,10 @@ class App:
         self.btn_salir.pack(pady=10)
 
 
-    ### VISTAS DE LOS MODELOS
 
-    #
+    ### VISTAS DE LOS MODELOS #############################################################
+
+    # Pantalla del menu del modelo regresion lineal
     def linear_regression_view(self):
         # Limpiar la ventana actual
         for widget in self.root.winfo_children():
@@ -86,7 +92,7 @@ class App:
                                       bg=self.btn_bg_color_amarillo, command=self.create_main_menu_view)
         self.btn_regresar.pack(pady=10)
 
-    #
+    # Pantalla del menu de modelo probit
     def probit_view(self):
         # Limpiar la ventana actual
         for widget in self.root.winfo_children():
@@ -110,7 +116,7 @@ class App:
                                       bg=self.btn_bg_color_amarillo, command=self.create_main_menu_view)
         self.btn_regresar.pack(pady=10)
 
-    #
+    # Pantalla del menu de modelo logit
     def logit_view(self):
         # Limpiar la ventana actual
         for widget in self.root.winfo_children():
@@ -136,9 +142,9 @@ class App:
 
 
 
-    ### VISTAS DE ENTRENAMIENTO Y PREDICCION
+    ### VISTAS DE ENTRENAMIENTO  ############################################################
 
-    #
+    # Pantalla de entrenamiento de modelo de regresion lineal
     def train_linear_regression_model_view(self):
         try:
             self.clear_window()
@@ -221,7 +227,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
 
-    #
+    # Pantalla de entrenamiento de modelo probit
     def train_probit_model_view(self):
         try:
             self.clear_window()
@@ -277,7 +283,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
 
-    #
+    # Pantalla de entrenamiento de modelo logit
     def train_logit_model_view(self):
         try:
             self.clear_window()
@@ -332,7 +338,11 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error al entrenar el modelo: {e}")
 
-    #
+
+
+    ### VISTAS DE PREDICCION  ###############################################################
+
+    # Pantalla de prediccion de modelo de regresion lineal
     def predict_downloads_linear_regression_view(self):
         try:
             self.clear_window()
@@ -404,7 +414,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error al predecir datos: {e}")
 
-    #
+    # Pantalla de prediccion de modelo probit
     def predict_probit_view(self):
         try:
             self.clear_window()
@@ -452,7 +462,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error al predecir datos: {e}")
 
-    #
+    # Pantalla de prediccion de modelo logit
     def predict_logit_view(self):
         try:
             self.clear_window()
@@ -500,9 +510,14 @@ class App:
 
 
 
-    ### HADLE ENTRENAMIENTOS
+    ### HANDLER ENTRENAMIENTOS ###################################################################
+    # los metodos handler nos sirven para estandarizar los datos que vamos a usar
+    # posteriormente para el entrenamiento y la prediccion. son metodos intermedios
+    # entre las vistas y la logica de los modelos.
+    # estos metodos reciben los datos entregados por la interfaz y tambien entrega
+    # las respuestas procesadas por la logica de cada modelo
 
-    #
+    # Handler para el entrenamiento de regresion lineal
     def train_linear_regresion_model_handler(self):
         try:
             # self.entrenar_modelo_regresion_lineal()
@@ -516,15 +531,12 @@ class App:
             self.modelo_regresion_lineal.train_model(
                 funcionalidad, calidad_codigo, facilidad_uso, compatibilidad, descargas)
 
-            #self.modelo_regresion_lineal.plot_predictions()
-            #self.modelo_regresion_lineal.plot_statistics()
-
             self._clean_fields()
             self.txt_resultados.insert(tk.END, "Entrenamiento exitoso")
         except Exception as e:
             messagebox.showwarning("Error", f"Error en la predicción: {e}")
 
-    #
+    # Handler para el entrenamiento probit
     def train_probit_model_handler(self):
         try:
             portabilidad = self.entry_portabilidad.get()
@@ -532,15 +544,12 @@ class App:
 
             self.modelo_probit.train_model(portabilidad, exito)
 
-            # self.modelo_probit.plot_predictions()
-            # self.modelo_probit.plot_statistics()
-
             self._clean_fields()
             self.txt_resultados.insert(tk.END, "Entrenamiento exitoso")
         except Exception as e:
             messagebox.showwarning("Advertencia", f"Problema en la predicción: {str(e)}")
 
-    #
+    # Handler para el entrenamiento logit
     def train_logit_model_handler(self):
         try:
             portabilidad = self.entry_portabilidad.get()
@@ -548,9 +557,6 @@ class App:
 
             self.modelo_logit.train_model(portabilidad, exito)
 
-            # self.modelo_probit.plot_predictions()
-            # self.modelo_probit.plot_statistics()
-
             self._clean_fields()
             self.txt_resultados.insert(tk.END, "Entrenamiento exitoso")
         except Exception as e:
@@ -558,9 +564,14 @@ class App:
 
 
 
-    ### PREDICCIONES
+    ### HANDLER PREDICCIONES #######################################################################
+    # los metodos handler nos sirven para estandarizar los datos que vamos a usar
+    # posteriormente para el entrenamiento y la prediccion. son metodos intermedios
+    # entre las vistas y la logica de los modelos.
+    # estos metodos reciben los datos entregados por la interfaz y tambien entrega
+    # las respuestas procesadas por la logica de cada modelo
 
-    #
+    # Handler para la prediccion de regresion lineal
     def predict_downloads_handler(self):
         try:
             funcionalidad = float(self.entry_funcionalidad.get())
@@ -579,7 +590,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error en la predicción: {e}")
 
-    #
+    # Handler para la prediccion probit
     def predict_probit_handler(self):
         try:
             portabilidad = float(self.entry_portabilidad.get())
@@ -593,7 +604,7 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error en la predicción: {e}")
 
-    #
+    # Handler para la prediccion logit
     def predict_logit_handler(self):
         try:
             portabilidad = float(self.entry_portabilidad.get())
@@ -607,7 +618,15 @@ class App:
         except Exception as e:
             messagebox.showerror("Error", f"Error en la predicción: {e}")
 
-    #
+
+
+    ### RANDOM DATA ###############################################################################
+    # Estos metodos se encargan de generar 50 datos aleatorios de cada input
+    # y asi poder probar la prediccion de los datos con multiples entradas
+    # generadas aleatoriamente
+
+    # Metodo que genera entradas aleatorias para la prediccion
+    # de regresion lineal
     def random_linear_regresion_predictions(self):
         self.txt_resultados.delete('1.0', tk.END)
         for i in range(50):
@@ -618,7 +637,7 @@ class App:
             epsilon = random.uniform(-5, 5)
 
             # Predicción del número de descargas
-            prediccion = self.modelo_regresion_lineal.predict_downloads_random_data(funcionalidad, calidad, facilidad,
+            prediccion = self.modelo_regresion_lineal.predict_downloads(funcionalidad, calidad, facilidad,
                                                                                     compatibilidad, epsilon)
 
             resultado = (f"Software {i + 1}:\n"
@@ -629,7 +648,7 @@ class App:
                          f"Predicción del número de descargas: {prediccion:.2f}\n\n")
             self.txt_resultados.insert(tk.END, resultado)
 
-    #
+    # Metodo que genera entradas aleatorias para la prediccion probit
     def random_probit_predictions(self):
         self.txt_resultados.delete('1.0', tk.END)
         for i in range(50):
@@ -643,7 +662,7 @@ class App:
                          f"Predicción: {prediccion}\n\n")
             self.txt_resultados.insert(tk.END, resultado)
 
-    #
+    # Metodo que genera entradas aleatorias para la prediccion logit
     def random_logit_predictions(self):
         self.txt_resultados.delete('1.0', tk.END)
         for i in range(50):
@@ -659,9 +678,11 @@ class App:
 
 
 
-    ### VALIDAR ENTRADAS
+    ### VALIDAR ENTRADAS ############################################################################
+    # Metodos que se encargan de hacer las validaciones en el mismo
+    # momento que el usuario esta digitando las entradas en los inputs
 
-    #
+    # Metodo que valida una entrada binaria
     def _validate_bit_entry(self, new_value):
         # Verificar que cada carácter sea '0', '1' o un espacio
         if all(char in '01 ' for char in new_value):
@@ -672,7 +693,7 @@ class App:
 
         return False
 
-    #
+    # Metodo que valida que una entrada sea numerica
     def _validate_numeric_entry(self, new_value):
         # Verificar si el nuevo valor es válido (dígitos, puntos, o espacios)
         if all(char.isdigit() or char == '.' or char == ' ' for char in new_value):
@@ -682,7 +703,7 @@ class App:
         return False
 
 
-    #
+    # Metodo que nos ayuda a limpiar todos los campos
     def _clean_fields(self):
         if hasattr(self, 'entry_funcionalidad'):
             self.entry_funcionalidad.delete(0, tk.END)
@@ -700,7 +721,7 @@ class App:
             self.entry_exito.delete(0, tk.END)
         self.txt_resultados.delete('1.0', tk.END)
 
-    #
+    # Metodo que nos ayuda a eliminar las ventanas que no estamos usando
     def clear_window(self):
         for widget in self.root.winfo_children():
             widget.destroy()
