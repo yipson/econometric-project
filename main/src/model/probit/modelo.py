@@ -5,9 +5,10 @@ import statsmodels.api as sm
 from sklearn.metrics import accuracy_score, recall_score
 from statsmodels.tools.sm_exceptions import ValueWarning
 
-
-
+# Clase encargada de la logica del modelo logit
 class ModelProbit:
+
+    # Constructor
     def __init__(self):
         self.probit_model  = None
         self.probit_fit = None
@@ -15,9 +16,10 @@ class ModelProbit:
         self.beta_1 = None
         self.sample_len = None
 
-
+    # Metodo encargado de entrenar el modelo
     def train_model(self, string_portability, string_success):
 
+        # se mapean los datos de entrada de string a arrays numericos
         self.portability = self._map_string_to_array(string_portability)
         self.success = self._map_string_to_array(string_success)
 
@@ -37,6 +39,8 @@ class ModelProbit:
         except np.linalg.LinAlgError as e:
             raise Exception(f"Se requiere mas cantidad o mas variabilidad en los datos") from e
 
+
+        # se obtienen coeficientes
         try:
             self.beta_0 = self.probit_fit.params[0]
             self.beta_1 = self.probit_fit.params[1]
@@ -53,13 +57,13 @@ class ModelProbit:
         print(f'Probabilidades predichas:\n{y_pred_prob}')
         print(f'Exito 1 - Fracaso 0:\n{y_pred}') # se conoce el exito o fracaso
 
-        ## Metricas
+        ## Imprimimos en consola tasa de acierto y sensibilidad
         exactitud = accuracy_score(y, y_pred)
         sensibilidad = recall_score(y, y_pred)
         print(f"Tasa de acierto : {exactitud}")
         print(f"Sensibilidad    : {sensibilidad}")
 
-
+    # metodo que predice el exito
     def predict_success(self, portability):
         if self.probit_fit is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de hacer predicciones.")
@@ -75,7 +79,7 @@ class ModelProbit:
 
 
 
-    #definir como metodo en package utils para que pueda ser usado de forma global
+    # Metodo que mapea datos recibidos como strings, en array numericos
     def _map_string_to_array(self, string_numeros):
         numeros = list(map(int, string_numeros.split()))
         if len(numeros) < 5:
@@ -83,6 +87,7 @@ class ModelProbit:
         return numeros
 
 
+    # Metodo que grafica media, mediana y desviacion estandar
     def plot_statistics_one(self):
         if self.probit_model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
@@ -119,6 +124,7 @@ class ModelProbit:
         plt.show()
 
 
+    # Metodo que grafica varianza moda y coeficiente de variacion
     def plot_statistics_two(self):
         if self.probit_model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")

@@ -4,8 +4,10 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from statsmodels.tools.sm_exceptions import ValueWarning
 
-
+# Clase encargada de la logica del modelo logit
 class ModelLogit:
+
+    # Constructor
     def __init__(self):
         self.logit_model = None
         self.logit_fit = None
@@ -13,7 +15,11 @@ class ModelLogit:
         self.beta_1 = None
         self.sample_len = None
 
+
+    # funcion encargada de entrenar el modelo
     def train_model(self, string_portability, string_success):
+
+        # se mapean los datos de entrada de string a arrays numericos
         self.portability = self._map_string_to_array(string_portability)
         self.success = self._map_string_to_array(string_success)
 
@@ -52,7 +58,7 @@ class ModelLogit:
         print(f'Exactitud:\n{exactitud}')
 
 
-
+    # Metodo encargado de predecir el exito
     def predict_success(self, portability):
         if self.logit_fit is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de hacer predicciones.")
@@ -67,7 +73,7 @@ class ModelLogit:
         return "Fracaso"
 
 
-
+    # Metodo encargado de mapear las entradas de string a array numericos
     def _map_string_to_array(self, string_numeros):
         numeros = list(map(int, string_numeros.split()))
         if len(numeros) < 5:
@@ -75,6 +81,7 @@ class ModelLogit:
         return numeros
 
 
+    # Grafica media, mediana, desviacion estandar
     def plot_statistics_one(self):
         if self.logit_model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
@@ -111,6 +118,7 @@ class ModelLogit:
         plt.show()
 
 
+    # Grafica varianza moda y coeficiente de variacion
     def plot_statistics_two(self):
         if self.logit_model is None:
             raise ValueError("El modelo no está entrenado. Por favor, entrene el modelo antes de generar la gráfica.")
