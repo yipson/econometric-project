@@ -634,11 +634,10 @@ class App:
             calidad = random.uniform(0, 10)
             facilidad = random.uniform(0, 10)
             compatibilidad = random.choice([0, 1])
-            epsilon = random.uniform(-5, 5)
 
             # Predicción del número de descargas
-            prediccion = self.modelo_regresion_lineal.predict_downloads(funcionalidad, calidad, facilidad,
-                                                                                    compatibilidad, epsilon)
+            prediccion = self.modelo_regresion_lineal.predict_downloads(funcionalidad, calidad,
+                                                                        facilidad,compatibilidad,)
 
             resultado = (f"Software {i + 1}:\n"
                          f"Funcionalidad: {funcionalidad:.2f}\n"
